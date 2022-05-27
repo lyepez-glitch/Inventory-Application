@@ -1,0 +1,11 @@
+doctype html
+html(lang = 'en')
+ head
+   title Home
+ body
+   h1 Welcome to the items page
+   ul
+      each item in found_items
+          li
+              a(href = item.url) #{item.name}
+

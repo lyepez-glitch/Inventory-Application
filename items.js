@@ -1,59 +1,39 @@
-const Item = require('./models/itemsSchema').Item;
-
-const createItems = (name, description, price, number_in_stock) => {
-    return { name, description, price, number_in_stock }
-}
-
-const createItemsInstances = async() => {
-
-    const items = [{
-            Item: 'Leash',
-            Description: 'Walk dogs',
-            Price: 10,
-            Number_in_Stock: 300
-        },
-
-        {
-            Item: 'Walking stick',
-            Description: 'Use for hiking',
-            Price: 25,
-            Number_in_Stock: 200
-        },
+const Item = require('./models/itemsSchema');
 
 
-        {
-            Item: 'Food Thermometer',
-            Description: 'Used for checking meat is ready',
-            Price: 30,
-            Number_in_Stock: 500
-        },
+const mongoose = require('mongoose');
+var catArr = [{ name: 'Home', items: ['House'] }, { name: 'Food', items: ['Pizza'] }, { name: 'Bathroom', items: 'Tub' }, { name: 'Games', items: ['Legend of Zelda'] }, { name: 'Movies', items: ['Spiderman 2'], }, { name: 'Computers', items: ['Mac'] }, { name: 'Music', items: ['Linkin Park'] }, { name: 'Pets', items: ['Dog'] }];
 
-        {
-            Item: 'Pencil',
-            Description: 'Used for writing and drawing',
-            Price: 5,
-            Number_in_Stock: 1000
-        },
-        {
-            Item: 'Pen',
-            Description: 'Used for writing',
-            Price: 7,
-            Number_in_Stock: 1000
-        }, { Item: 'The Legend of Zelda', Description: 'A classic video game', Price: 30, Number_in_Stock: 400 },
+var itemsArr = [{ name: 'House', description: 'People live in it' }, { name: 'Pizza', description: 'it is cheesy and good' }, { name: 'Tub', description: 'take baths' }, { name: 'Legend of Zelda', description: 'Best game for nintendo' }, { name: 'Spiderman 2', description: 'OG spiderman movie' }, { name: 'Mac', description: 'A type of computer' }, { name: 'Linkin Park', description: 'a good numetal band' }, { name: 'Dog', description: 'Man\'s best friend' }]
 
-        { Item: 'Spiderman 2', Description: 'Sam Raimi directed movie', Price: 20, Number_in_Stock: 200 },
-
-        { Item: 'Red Chair', Description: 'A red chair that is really big', Price: 30, Number_in_Stock: 300 }
-    ]
-    for (var i = 0; i < items.length; i++) {
-        var item = items[i];
-        for (var key in item) {
-            new_item = new Item({ name: Item, description: Description, price: Price, number_in_stock: Number_in_Stock })
-            await new_item.save();
+var getReference = (item) => {
+    for (var i = 0; i < catArr.length; i++) {
+        let arrItem = catArr[i];
+        if (arrItem.items.includes(item)) {
+            return arrItem.name
         }
-
     }
 }
+
+
+const createItemsInstances = async() => {
+    await Item.deleteMany({})
+    for (var i = 0; i < itemsArr.length; i++) {
+        var item = itemsArr[i];
+        var new_item = new Item({
+            name: item.name,
+            description: item.description,
+            price: item.price,
+            number_in_stock: item.number_in_stock
+        })
+        new_item = await new_item.save();
+
+    }
+
+
+
+}
+
 
 
 module.exports = createItemsInstances;
