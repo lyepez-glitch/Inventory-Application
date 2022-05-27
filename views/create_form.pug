@@ -1,0 +1,10 @@
+html(lang = 'en')
+ head
+   title Home
+ body
+ form(method='POST' action = 'create')
+    label(for='category') Category:
+    input(type = 'text' placeholder='Category' name='category' required='true')
+    label(for='description') Description:
+    input(type = 'text' placeholder='Category' name='description' required='true')
+    button(type='submit') Submit

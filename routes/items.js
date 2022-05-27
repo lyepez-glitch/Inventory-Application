@@ -14,4 +14,6 @@ router.get('/:id', async(req, res) => {
     res.render('items_detail', { item: found_item })
 
 })
+
+router.post(':')
 module.exports = router

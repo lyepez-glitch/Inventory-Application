@@ -4,5 +4,10 @@ html(lang = 'en')
    title Home
  body
    h1 This is the #{cat.name} page
-   h1 #{cat.items[0].name}
-   h1 #{cat.items[0].description}
+      h1 #{cat.description}
+
+      ul
+        each item in items
+          li #{item.name}
+          |#{item.description}
+

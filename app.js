@@ -8,11 +8,12 @@ const app = express()
 const Item = require('./models/itemsSchema');
 const item_routes = require('./routes/items')
 const category_routes = require('./routes/categories')
+const bodyParser = require('body-parser');
 const categories = require('./categories')
 const items = require('./items')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
-
+app.use(bodyParser.urlencoded({ extended: false }))
 
 const url = process.env.PASSWORD;
 // 6290140b90bc379e228a127c
