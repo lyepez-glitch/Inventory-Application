@@ -1,0 +1,15 @@
+doctype html
+html(lang = 'en')
+ head
+   title Home
+ body
+  form(method='POST' action = itemURL)
+    label(for='cat') Category:
+    input(type='text' id= 'cat' value = cat_name name = 'cat')
+    label(for='items') Add Items
+    textarea#items(name='items')
+
+
+
+
+    button(type='submit') Submit

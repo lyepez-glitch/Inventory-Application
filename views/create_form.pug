@@ -1,3 +1,4 @@
+-var addItem = 'True';
 html(lang = 'en')
  head
    title Home
@@ -7,4 +8,9 @@ html(lang = 'en')
     input(type = 'text' placeholder='Category' name='category' required='true')
     label(for='description') Description:
     input(type = 'text' placeholder='Category' name='description' required='true')
+    label(for='items') Add Items
+    textarea#items(name='items')
+
+
+
     button(type='submit') Submit
