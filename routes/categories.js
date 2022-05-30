@@ -73,19 +73,25 @@ router.post('/delete/:item/:cat', async(req, res) => {
     const { item, cat } = req.params;
 
     let found_cat = await Category.findById(cat).populate('items');
+    console.log(found_cat, 'cat before delete')
     let found_item = await Item.findById(item);
     found_cat.items.forEach(old_item => {
         if (JSON.stringify(old_item._id), item) {
             found_cat.items = found_cat.items.filter(item => {
                 item._id !== old_item._id
             })
-            found_cat.save().then(result => {
-                console.log(result, 'cat after delete')
-                res.send(`Item ${old_item.name} deleted`)
-            })
+
+            // found_cat.save().then(result => {
+            //     console.log(result, 'cat after delete')
+            //     res.send(`Item ${old_item.name} deleted`)
+            // })
 
         }
     })
+    found_cat = await found_cat.save();
+    console.log(found_cat, 'cat after delete')
+    res.send(`Item ${found_item.name} deleted`)
+
 
 })
 
