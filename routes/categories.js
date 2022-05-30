@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const Item = require('../models/itemsSchema');
 router.get('/', async(req, res) => {
     const found_categories = await Category.find({}).populate('items')
+    console.log('test the cats', found_categories)
     res.render('categories', { found_categories, create: `/categories/create` })
 })
 
@@ -14,16 +15,34 @@ router.get('/create', async(req, res) => {
 
 router.post('/create', async(req, res) => {
     let { category, description, items } = req.body;
-    items = items.split(',')
-    var itemsCopy = items;
+    let itemsArr = items.split(',')
     const new_category = new Category({ name: category, description, items: [] })
 
-    await new_category.save()
+    itemsArr.forEach(async(item) => {
 
-    console.log(new_category)
+        let new_item = new Item({ name: item });
+        new_item.save().then(async(result) => {
+            new_category.items.push(new_item)
+        })
 
-    console.log('Category Created')
-    res.redirect('/categories')
+    })
+
+
+    new_category.save().then(result => {
+
+        result.save().then((result) => {
+            res.redirect('/categories')
+        })
+
+    })
+
+    // let saved_cat = await new_category.save();
+    // console.log('Category Created', saved_cat)
+    // saved_cat.save().then((result) => { res.redirect('/categories') });
+
+
+
+
 
 })
 
@@ -35,6 +54,7 @@ router.get('/:id/addItems', async(req, res) => {
 
 router.post('/:id/addItems', async(req, res) => {
     let { cat, items } = req.body;
+
     let found_cat = await Category.findById(req.params.id)
     items = items.split(',');
     items.forEach(async(item) => {
@@ -63,6 +83,20 @@ router.get('/:id', async(req, res) => {
     })
 })
 
+router.get('/delete/:cat', (req, res) => {
+    const { cat } = req.params;
+    res.render('deleteCatForm', { catID: cat })
+})
+
+router.post('/delete/:cat', (req, res) => {
+    const { cat } = req.params;
+    Category.findById(cat).then(async(result) => {
+        const { name } = result;
+        await Category.deleteOne(result);
+        // res.send(`${name} deleted`)
+        res.redirect('/categories')
+    })
+})
 
 router.get('/delete/:item/:cat', (req, res) => {
     const { item, cat } = req.params;
@@ -81,10 +115,7 @@ router.post('/delete/:item/:cat', async(req, res) => {
                 item._id !== old_item._id
             })
 
-            // found_cat.save().then(result => {
-            //     console.log(result, 'cat after delete')
-            //     res.send(`Item ${old_item.name} deleted`)
-            // })
+
 
         }
     })

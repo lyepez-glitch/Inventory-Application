@@ -5,6 +5,8 @@ html(lang = 'en')
  body
    h1 This is the #{cat.name} page
       h1 #{cat.description}
+      a(href = `/categories/delete/${catID}`) Delete #{cat.name}
+
 
       ul
         each item in items
