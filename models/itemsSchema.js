@@ -7,8 +7,9 @@ const itemsSchema = new Schema({
     number_in_stock: Number
 })
 itemsSchema.virtual('url').get(function() {
-    return `/items/${this._id}`
+    return `${this._id}`
 })
+
 const Item = mongoose.model('Item', itemsSchema)
 
 module.exports = Item;

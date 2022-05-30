@@ -58,10 +58,39 @@ router.post('/:id/addItems', async(req, res) => {
 router.get('/:id', async(req, res) => {
     const { id } = req.params;
     Category.findById(id).populate('items').then(cat => {
-        console.log('test', cat, cat.items)
-        res.render('category_detail', { cat, items: cat.items, itemURL: `${req.params.id}/AddItems` })
+
+        res.render('category_detail', { cat, items: cat.items, itemURL: `${req.params.id}/AddItems`, catID: id })
     })
 })
+
+
+router.get('/delete/:item/:cat', (req, res) => {
+    const { item, cat } = req.params;
+    res.render('deleteForm', { itemID: item, catID: cat })
+})
+
+router.post('/delete/:item/:cat', async(req, res) => {
+    const { item, cat } = req.params;
+
+    let found_cat = await Category.findById(cat).populate('items');
+    let found_item = await Item.findById(item);
+    found_cat.items.forEach(old_item => {
+        if (JSON.stringify(old_item._id), item) {
+            found_cat.items = found_cat.items.filter(item => {
+                item._id !== old_item._id
+            })
+            found_cat.save().then(result => {
+                console.log(result, 'cat after delete')
+                res.send(`Item ${old_item.name} deleted`)
+            })
+
+        }
+    })
+
+})
+
+
+
 
 
 
