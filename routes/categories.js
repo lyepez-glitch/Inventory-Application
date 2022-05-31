@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router()
+
 const Category = require('../models/categorySchema');
 const mongoose = require('mongoose')
 const Item = require('../models/itemsSchema');
@@ -13,6 +14,8 @@ router.get('/create', async(req, res) => {
     res.render('create_form')
 })
 
+
+
 router.get('/:id', async(req, res) => {
     const { id } = req.params;
     Category.findById(id).populate('items').then(cat => {
@@ -22,8 +25,9 @@ router.get('/:id', async(req, res) => {
 })
 
 router.post('/create', async(req, res) => {
-    let { category, description, items } = req.body;
+    let { category, description, items, uploaded_file } = req.body;
     let itemsArr = items.split(',')
+    console.log(req.body, 'file');
     const new_category = new Category({ name: category, description, items: [] })
 
     itemsArr.forEach(async(item) => {
@@ -39,7 +43,7 @@ router.post('/create', async(req, res) => {
     new_category.save().then(result => {
 
         result.save().then((result) => {
-            res.redirect('/categories')
+            // res.redirect('/categories')
         })
 
     })

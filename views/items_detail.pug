@@ -1,9 +1,18 @@
 doctype html
 html(lang = 'en')
- head
-   title Home
- body
+  head
+    title Home
+    link(rel='stylesheet', href='/style.css')
 
-   h1 This is the #{item.name} page
+  body
 
+   h1#heading This is the #{item.name} page
+   #image
+     if !item.img
+      img(class = 'image' src='/IMG-0064.jpg' )
+     else
+      img(class = 'image' src=item.img)
 
+   form(method='POST' action = `/items/${item._id}` enctype="multipart/form-data")
+      input( type = 'file'  name="uploaded_file")
+      button(type='submit') Submit

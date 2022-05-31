@@ -10,10 +10,16 @@ html(lang = 'en')
 
       ul
         each item in items
-          #item
-            a(href=item.url)
-              li #{item.name}
-              |#{item.description}
+          #image
+            if !item.img
+              img(class = 'image' src='/IMG-0064.jpg' )
+            else
+              img(class = 'image' src=item.img)
+            #item
+              a(href=`/items/${item.url}`)
+                li #{item.name}
+                |#{item.description}
+
 
             a(href = `/categories/delete/${item.url}/${catID}`) Delete
    a(href=itemURL) Add Items Here

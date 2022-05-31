@@ -4,11 +4,15 @@ const itemsSchema = new Schema({
     name: String,
     description: String,
     price: Number,
-    number_in_stock: Number
+    number_in_stock: Number,
+    img: String
 })
 itemsSchema.virtual('url').get(function() {
     return `${this._id}`
 })
+
+
+
 
 const Item = mongoose.model('Item', itemsSchema)
 
