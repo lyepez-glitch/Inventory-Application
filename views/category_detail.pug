@@ -4,9 +4,9 @@ html(lang = 'en')
    title Home
  body
    h1 This is the #{cat.name} page
-      h1 #{cat.description}
+   h1 #{cat.description}
       a(href = `/categories/delete/${catID}`) Delete #{cat.name}
-
+      a(href = `/categories/updatecat/${catID}`) Update #{cat.name}
 
       ul
         each item in items

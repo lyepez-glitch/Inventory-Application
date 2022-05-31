@@ -1,0 +1,35 @@
+
+html(lang = 'en')
+ head
+   title Delete
+ body
+ doctype html
+html(lang = 'en')
+ head
+   title Home
+ body
+   h1 This is the #{cat.name} page
+   h1 #{cat.description}
+
+
+
+
+
+ form(method='POST' action = `/categories/updatecat/${catID}`)
+    label(for='category') Category:
+    input(type = 'text' placeholder='Category' name='category' required='true' value = cat.name)
+    label(for='description') Description:
+    input(type = 'text'  name='description' required='true' value = cat.description)
+    #items
+      //- each item in items
+
+      //-   label(id = item.name)
+      //-     input(type = 'text' for=item.name name=item.name value =item.name)
+      input(type = 'text' for='items' name='items' value =items)
+
+
+
+
+    button(type='submit') Update
+
+
