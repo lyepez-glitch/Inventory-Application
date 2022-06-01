@@ -2,11 +2,14 @@ doctype html
 html(lang = 'en')
  head
    title Home
+   link(rel='stylesheet', href='/style.css')
+
  body
    h1 This is the #{cat.name} page
    h1 #{cat.description}
-      a(href = `/categories/delete/${catID}`) Delete #{cat.name}
-      a(href = `/categories/updatecat/${catID}`) Update #{cat.name}
+      if user === 'signed in'
+        a(href = `/categories/delete/${catID}`) Delete #{cat.name}
+        a(href = `/categories/updatecat/${catID}`) Update #{cat.name}
 
       ul
         each item in items
@@ -16,7 +19,7 @@ html(lang = 'en')
             else
               img(class = 'image' src=item.img)
             #item
-              a(href=`/items/${item.url}`)
+              a(href=`/items/edit-items/${item.url}`)
                 li #{item.name}
                 |#{item.description}
 

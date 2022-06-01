@@ -5,7 +5,10 @@ const itemsSchema = new Schema({
     description: String,
     price: Number,
     number_in_stock: Number,
-    img: String
+    img: {
+        type: [String],
+        default: undefined
+    }
 })
 itemsSchema.virtual('url').get(function() {
     return `${this._id}`

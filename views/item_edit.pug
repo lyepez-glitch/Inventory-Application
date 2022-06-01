@@ -1,0 +1,32 @@
+doctype html
+html(lang = 'en')
+  head
+    title Item Edit
+    link(rel='stylesheet', href='/style.css')
+
+
+  body
+
+   h1#heading This is the #{item.name} page
+   p #{item.description}
+   a(href=`/items/${item.url}`) Edit
+
+
+
+   #image
+     if !item.img
+      img(class = 'image' src='/IMG-0064.jpg' )
+     else
+      img(class = 'image' src=item.img)
+
+   form(method='POST' action = `/items/edit-items/${item.url}`)
+
+      input( type = 'file'  enctype="multipart/form-data" name="uploaded_file")
+      a(href = `/items/addimage/${item.url}`) Add image
+      if newImg
+         img(class = 'image' src='')
+         input( type = 'file'  enctype="multipart/form-data" name="uploaded_file")
+      input#items(name='item'  type = 'text' placeholder='change item name')
+      input(name='description' type = 'text' placeholder= 'change item description' )
+
+      button(type='submit') Submit

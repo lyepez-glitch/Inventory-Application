@@ -7,11 +7,15 @@ html(lang = 'en')
   body
 
    h1#heading This is the #{item.name} page
+   p #{item.description}
+   a(href=`/items/${item.url}`) Edit
    #image
      if !item.img
       img(class = 'image' src='/IMG-0064.jpg' )
      else
-      img(class = 'image' src=item.img)
+      each img in item.img
+        img(class = 'image' src=`/${img}`)
+
 
    form(method='POST' action = `/items/${item._id}` enctype="multipart/form-data")
       input( type = 'file'  name="uploaded_file")

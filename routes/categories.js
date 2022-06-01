@@ -1,9 +1,42 @@
 const express = require('express');
+var app = express()
 const router = express.Router()
 
 const Category = require('../models/categorySchema');
 const mongoose = require('mongoose')
 const Item = require('../models/itemsSchema');
+
+
+router.use((req, res, next) => {
+    app.locals.password = 'secret';
+    next()
+})
+
+router.get('/login', async(req, res) => {
+    res.render('login')
+})
+
+let hasPassword = (req, res, next) => {
+    if (app.locals.loggedIn === 'secret') {
+        return next()
+    }
+    res.send('not logged in')
+
+}
+
+
+router.post('/login', (req, res, next) => {
+    if (req.body.password === app.locals.password) {
+        app.locals.user = 'signed in'
+    } else {
+        app.locals.user = 'not signed in'
+    }
+    res.redirect('/categories')
+
+
+})
+
+
 router.get('/', async(req, res) => {
     const found_categories = await Category.find({}).populate('items')
         // console.log('test the cats', found_categories)
@@ -17,10 +50,12 @@ router.get('/create', async(req, res) => {
 
 
 router.get('/:id', async(req, res) => {
+    let user = app.locals.user;
+    console.log('uuser', user)
     const { id } = req.params;
     Category.findById(id).populate('items').then(cat => {
 
-        res.render('category_detail', { cat, items: cat.items, itemURL: `${req.params.id}/AddItems`, catID: id })
+        res.render('category_detail', { cat, items: cat.items, itemURL: `${req.params.id}/AddItems`, catID: id, user })
     })
 })
 

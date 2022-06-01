@@ -2,6 +2,8 @@
 html(lang = 'en')
  head
    title Delete
+   link(rel='stylesheet', href='/style.css')
+
  body
  form(method='POST' action = `/categories/delete/${catID}`)
     button(type='submit') Delete
