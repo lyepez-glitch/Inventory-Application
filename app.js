@@ -21,7 +21,9 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.use(express.static('uploads'))
 app.use(bodyParser.urlencoded({ extended: false }))
 
-const url = process.env.PASSWORD;
+var mongoDB = 'mongodb+srv://lyep:baByGrvi8fhUJmBM@cluster0.ibexa.mongodb.net/inventoryApp?retryWrites=true&w=majority';
+
+const url = process.env.MONGODB_URI || mongoDB;
 // 6290140b90bc379e228a127c
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
 
