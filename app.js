@@ -41,6 +41,9 @@ app.use((req, res, next) => {
     next()
 })
 
+app.get('/', (req, res) => {
+    res.send("Hello")
+})
 app.get('/login', async(req, res) => {
     res.render('login')
 })
