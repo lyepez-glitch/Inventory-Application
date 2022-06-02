@@ -11,7 +11,7 @@ const app = express()
 const Item = require('./models/itemsSchema');
 const item_routes = require('./routes/items')
 const category_routes = require('./routes/categories')
-
+console.log('test')
 const bodyParser = require('body-parser');
 const categories = require('./categories')
 const items = require('./items')
