@@ -7,34 +7,28 @@ const mongoose = require('mongoose')
 const Item = require('../models/itemsSchema');
 
 
-router.use((req, res, next) => {
-    app.locals.password = 'secret';
-    next()
-})
+// router.use((req, res, next) => {
+//     app.locals.password = 'secret';
+//     next()
+// })
 
-router.get('/login', async(req, res) => {
-    res.render('login')
-})
-
-let hasPassword = (req, res, next) => {
-    if (app.locals.loggedIn === 'secret') {
-        return next()
-    }
-    res.send('not logged in')
-
-}
+// router.get('/login', async(req, res) => {
+//     res.render('login')
+// })
 
 
-router.post('/login', (req, res, next) => {
-    if (req.body.password === app.locals.password) {
-        app.locals.user = 'signed in'
-    } else {
-        app.locals.user = 'not signed in'
-    }
-    res.redirect('/categories')
 
 
-})
+// router.post('/login', (req, res, next) => {
+//     if (req.body.password === app.locals.password) {
+//         app.locals.user = 'signed in'
+//     } else {
+//         app.locals.user = 'not signed in'
+//     }
+//     res.redirect('/categories')
+
+
+// })
 
 
 router.get('/', async(req, res) => {
@@ -50,7 +44,7 @@ router.get('/create', async(req, res) => {
 
 
 router.get('/:id', async(req, res) => {
-    let user = app.locals.user;
+    let user = global.user;
     console.log('uuser', user)
     const { id } = req.params;
     Category.findById(id).populate('items').then(cat => {
@@ -114,8 +108,6 @@ router.post('/:id/addItems', async(req, res) => {
 
 
 })
-
-
 
 router.get('/delete/:cat', (req, res) => {
     const { cat } = req.params;

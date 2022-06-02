@@ -23,6 +23,6 @@ html(lang = 'en')
                 li #{item.name}
                 |#{item.description}
 
-
-            a(href = `/categories/delete/${item.url}/${catID}`) Delete
+            if user === 'signed in'
+              a(href = `/categories/delete/${item.url}/${catID}`) Delete
    a(href=itemURL) Add Items Here

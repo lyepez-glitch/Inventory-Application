@@ -33,6 +33,31 @@ db.on('error', console.error.bind(console, 'MongoDB connection error'))
 categories()
 items()
 
+
+app.use((req, res, next) => {
+    global.password = 'secret';
+    next()
+})
+
+app.get('/login', async(req, res) => {
+    res.render('login')
+})
+
+
+
+
+app.post('/login', (req, res, next) => {
+    if (req.body.password === global.password) {
+        global.user = 'signed in'
+    } else {
+        global.user = 'not signed in'
+    }
+    console.log('var', global.user)
+    res.redirect('/categories')
+
+
+})
+
 app.use('/items', item_routes)
 app.use('/categories', category_routes)
 

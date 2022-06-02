@@ -18,15 +18,15 @@ html(lang = 'en')
       img(class = 'image' src='/IMG-0064.jpg' )
      else
       img(class = 'image' src=item.img)
+     if user === 'signed in'
+      form(method='POST' action = `/items/edit-items/${item.url}`)
 
-   form(method='POST' action = `/items/edit-items/${item.url}`)
+          input( type = 'file'  enctype="multipart/form-data" name="uploaded_file")
+          a(href = `/items/addimage/${item.url}`) Add image
+          if newImg
+            img(class = 'image' src='')
+            input( type = 'file'  enctype="multipart/form-data" name="uploaded_file")
+          input#items(name='item'  type = 'text' placeholder='change item name')
+          input(name='description' type = 'text' placeholder= 'change item description' )
 
-      input( type = 'file'  enctype="multipart/form-data" name="uploaded_file")
-      a(href = `/items/addimage/${item.url}`) Add image
-      if newImg
-         img(class = 'image' src='')
-         input( type = 'file'  enctype="multipart/form-data" name="uploaded_file")
-      input#items(name='item'  type = 'text' placeholder='change item name')
-      input(name='description' type = 'text' placeholder= 'change item description' )
-
-      button(type='submit') Submit
+          button(type='submit') Submit
