@@ -63,4 +63,4 @@ app.post('/login', (req, res, next) => {
 app.use('/items', item_routes)
 app.use('/categories', category_routes)
 
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
